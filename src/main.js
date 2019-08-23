@@ -1,7 +1,7 @@
-import program from 'commander';
-import chalk from 'chalk';
-import apply from './index';
-import { VERSION } from './utils/constants';
+import program from 'commander'
+import chalk from 'chalk'
+import apply from './index'
+import { VERSION } from './utils/constants'
 
 /**
  * eos commands
@@ -12,9 +12,7 @@ import { VERSION } from './utils/constants';
 const actionMap = {
   init: {
     description: 'generate a new project from a template',
-    usages: [
-      'eos init templateName projectName',
-    ],
+    usages: ['eos init templateName projectName']
   },
   config: {
     alias: 'cfg',
@@ -22,52 +20,51 @@ const actionMap = {
     usages: [
       'eos config set <k> <v>',
       'eos config get <k>',
-      'eos config remove <k>',
-    ],
-
-  },
+      'eos config remove <k>'
+    ]
+  }
   // other commands
-};
+}
 
-Object.keys(actionMap).forEach((action) => {
-  program.command(action)
+Object.keys(actionMap).forEach(action => {
+  program
+    .command(action)
     .description(actionMap[action].description)
     .alias(actionMap[action].alias) // 别名
     .action(() => {
       switch (action) {
         case 'config':
           // 配置
-          apply(action, ...process.argv.slice(3));
-          break;
+          apply(action, ...process.argv.slice(3))
+          break
         case 'init':
-          apply(action, ...process.argv.slice(3));
-          break;
+          apply(action, ...process.argv.slice(3))
+          break
         default:
-          break;
+          break
       }
-    });
-});
+    })
+})
 
 function help() {
-  console.log('\r\nUsage:');
-  Object.keys(actionMap).forEach((action) => {
-    actionMap[action].usages.forEach((usage) => {
-      console.log(`  - ${usage}`);
-    });
-  });
-  console.log('\r');
+  console.log('\r\nUsage:')
+  Object.keys(actionMap).forEach(action => {
+    actionMap[action].usages.forEach(usage => {
+      console.log(`  - ${usage}`)
+    })
+  })
+  console.log('\r')
 }
 
-
-program.usage('<command> [options]');
-program.on('-h', help);
-program.on('--help', help);
-program.version(VERSION, '-V --version').parse(process.argv);
+program.usage('<command> [options]')
+program.on('-h', help)
+program.on('--help', help)
+program.version(VERSION, '-V --version').parse(process.argv)
 
 // eos 不带参数时
 if (!process.argv.slice(2).length) {
-  program.outputHelp(make_green);
+  program.outputHelp(make_green)
 }
 function make_green(txt) {
-  return chalk.green(txt);
+  return chalk.green(txt)
 }

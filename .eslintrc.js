@@ -3,7 +3,12 @@ module.exports = {
   env: {
     node: true
   },
-  extends: ['airbnb-base', 'prettier'],
+  extends: [
+    'airbnb-base',
+    'prettier',
+    'plugin:prettier/recommended'
+  ],
+  plugins: ['prettier'],
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
